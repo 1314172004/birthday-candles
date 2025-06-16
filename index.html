@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Blow Out the Candles!</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom, #ffe0e9, #fff7f0);
+      font-family: 'Pacifico', cursive;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    h1 {
+      margin-top: 20px;
+      color: #d6336c;
+    }
+
+    .cake {
+      position: relative;
+      width: 300px;
+      height: 200px;
+      background: #ffb6b9;
+      border-radius: 10px 10px 0 0;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      margin-top: 20px;
+    }
+
+    .candle {
+      position: absolute;
+      width: 10px;
+      height: 40px;
+      background: #fff;
+      top: -40px;
+    }
+
+    .flame {
+      position: absolute;
+      top: -15px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 15px;
+      height: 15px;
+      background: radial-gradient(circle, yellow, orange);
+      border-radius: 50%;
+      animation: flicker 1s infinite;
+    }
+
+    @keyframes flicker {
+      0%, 100% { transform: translateX(-50%) scale(1); opacity: 1; }
+      50% { transform: translateX(-50%) scale(1.2); opacity: 0.6; }
+    }
+
+    .button {
+      margin-top: 30px;
+      padding: 10px 20px;
+      font-size: 16px;
+      background: #f06292;
+      color: white;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .button:hover {
+      background: #d6336c;
+    }
+
+    .letter {
+      width: 300px;
+      height: 200px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+      padding: 20px;
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translate(-50%, 0);
+      opacity: 0;
+      transition: all 1s ease;
+      font-size: 18px;
+      color: #444;
+      text-align: center;
+    }
+
+    .letter.show {
+      top: 60%;
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Make a Wish and Blow the Candles!</h1>
+
+  <div class="cake" id="cake">
+    <!-- Multiple candles -->
+  </div>
+
+  <button class="button" onclick="blowCandles()">Blow Candles</button>
+
+  <div class="letter" id="letter">
+    🎉 Dear Friend, Happy Birthday! 🎂<br>
+    Wishing you joy, success, and love on your special day.
+  </div>
+
+  <script>
+    // Generate multiple candles
+    const cake = document.getElementById('cake');
+    const candleCount = 10;
+    for (let i = 0; i < candleCount; i++) {
+      const candle = document.createElement('div');
+      candle.className = 'candle';
+      candle.style.left = `${15 + i * 25}px`;
+
+      const flame = document.createElement('div');
+      flame.className = 'flame';
+      flame.id = `flame-${i}`;
+
+      candle.appendChild(flame);
+      cake.appendChild(candle);
+    }
+
+    function blowCandles() {
+      for (let i = 0; i < candleCount; i++) {
+        const flame = document.getElementById(`flame-${i}`);
+        if (flame) flame.style.display = 'none';
+      }
+      const letter = document.getElementById('letter');
+      setTimeout(() => {
+        letter.classList.add('show');
+      }, 1000);
+    }
+  </script>
+
+</body>
+</html>
